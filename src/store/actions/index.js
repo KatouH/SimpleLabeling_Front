@@ -42,3 +42,21 @@ export function uploadLabeledList(sentence){
             .then(response=>response,error=>console.log('An error occured.',error))
     }
 }
+
+
+
+
+//test function
+
+export function fetchOneUnlabeledSentence(){
+    return (dispatch)=>{
+        return axios('http://localhost:3001/labeling/getone')
+            .then(response=>response,error=>console.log('An error occured',error))
+            .then(json=>dispatch(getUnlabeledSentence(json)))
+    }
+}
+
+export const getUnlabeledSentence = (json)=>({
+    type:"GET_UNLABELED_SENTENCE",
+    data:json.data.data
+})
