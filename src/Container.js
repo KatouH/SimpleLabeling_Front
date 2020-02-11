@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {uploadLabeledData,getUnlabeledData,fetchOneUnlabeledSentence} from './store/actions'
+import {uploadLabeledData,getUnlabeledData,fetchOneUnlabeledSentence, updateSentenceById} from './store/actions'
 import TestLabeling from './components/TestLabeling'
 
 const mapStateToProps = (state)=>({
@@ -9,7 +9,8 @@ const mapStateToProps = (state)=>({
 const mapDispatchToProps = (dispatch)=>({
     uploadLabeledData:(labeledData)=>{dispatch(uploadLabeledData(labeledData))},
     getUnLabeledData:(index)=>{dispatch(getUnlabeledData(index))},
-    getOneUnLabeledSentence:()=>{dispatch(fetchOneUnlabeledSentence())}
+    getOneUnLabeledSentence:()=>{return dispatch(fetchOneUnlabeledSentence())},
+    updateSentence:(sentence)=>{return dispatch(updateSentenceById(sentence))}
 })
 
 const LabelingPage = connect(

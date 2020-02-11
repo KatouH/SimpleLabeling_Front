@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {Sentence} from '../state'
 
 export const getSentenceList = (index,sentence_num,json)=>({
     type:"GET_SENTENCE_LIST",
@@ -52,11 +53,37 @@ export function fetchOneUnlabeledSentence(){
     return (dispatch)=>{
         return axios('http://localhost:3001/labeling/getone')
             .then(response=>response,error=>console.log('An error occured',error))
-            .then(json=>dispatch(getUnlabeledSentence(json)))
+            .then(json=>{
+                console.log(json.data)
+                if(json.data.code == 601){
+                    console.log("hhhh")
+                    dispatch(getUnlabeledSentence({data:Sentence}))
+                }
+                else {
+                    dispatch(getUnlabeledSentence(json))
+                }
+            })
     }
 }
 
 export const getUnlabeledSentence = (json)=>({
     type:"GET_UNLABELED_SENTENCE",
-    data:json.data.data
+    data:json.data
+})
+
+
+export function updateSentenceById(sentence){
+    return (dispatch)=>{
+        return axios.post('http://localhost:3001/labeling/updateone',sentence)
+            .then(res=>{
+                console.log('res=>',res)
+                return res
+            },error=>console.log('An error occured',error))
+            .then((res)=>dispatch(testUpdate(res)))
+    }
+}
+
+export const testUpdate=(sentence)=>({
+    type:'TEST_UPDATE',
+    sentence:sentence
 })

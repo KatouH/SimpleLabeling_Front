@@ -1,4 +1,3 @@
-import {getSentenceList,uploadLabeledData} from '../actions'
 import { combineReducers } from 'redux'
 import {Sentence} from '../state'
 
@@ -16,9 +15,11 @@ function LabelReducer(state=Sentence,action){
                 sentence:action.sentece
             })
         case 'GET_UNLABELED_SENTENCE':
-            let tmp = Object.assign({},state,action.data)
-            console.log(tmp)
-            return Object.assign({},state,action.data)
+            // eslint-disable-next-line no-cond-assign
+            if(action.data.code = 601){state=Sentence}
+            return Object.assign({},state,action.data.data)
+        case 'TEST_UPDATE':
+            return state
         default:
             return state
     }

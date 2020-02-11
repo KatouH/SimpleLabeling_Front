@@ -8,10 +8,6 @@ function App() {
         <LabelingPage/>
     </div>
   );
-
-  function goToHome(){
-
-  }
 }
 
 export default App;

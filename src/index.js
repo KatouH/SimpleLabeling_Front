@@ -5,7 +5,6 @@ import {createStore,applyMiddleware} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 import rootReducer from './store/reduces'
-import Router from './router'
 import App from './App'
 import './index.css';
 import * as serviceWorker from './serviceWorker';
