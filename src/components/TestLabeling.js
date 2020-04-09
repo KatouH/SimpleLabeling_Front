@@ -2,6 +2,9 @@ import React from 'react'
 import {List,Typography,Radio,Menu,Layout,Button,Icon,BackTop,message} from 'antd'
 const { Header, Content, Footer } = Layout;
 
+
+const key = 'updatable';
+
 export default class TestLabeling extends React.Component{
 
     constructor(props){
@@ -27,6 +30,7 @@ export default class TestLabeling extends React.Component{
     }
 
     async nextSentenceT(event){
+        message.loading({content:'Loading...',key});
         this.state.word_list.forEach((val,index)=>{
             this.tag_list += this.tag_map.get(val)
         })
@@ -46,6 +50,7 @@ export default class TestLabeling extends React.Component{
                     this.tag_list=''
                     this.setTagDefault()
                 })
+                message.success({content:'Loaded',key,duration:2})
                 if(this.props.data.sentence === ''){message.warning('没有更多了~');return;}
             })
         })

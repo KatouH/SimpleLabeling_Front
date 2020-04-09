@@ -1,6 +1,9 @@
 import axios from 'axios'
 import {Sentence} from '../state'
 
+//const url = "http://175.24.60.121:3001";
+const url = "http://localhost:3001";
+
 export const getSentenceList = (index,sentence_num,json)=>({
     type:"GET_SENTENCE_LIST",
     index:index,
@@ -51,18 +54,15 @@ export function uploadLabeledList(sentence){
 
 export function fetchOneUnlabeledSentence(){
     return (dispatch)=>{
-        return axios('http://localhost:3001/labeling/getone')
-            .then(response=>response,error=>console.log('An error occured',error))
+        return axios(url+"/labeling/getone")
             .then(json=>{
-                console.log(json.data)
                 if(json.data.code == 601){
-                    console.log("hhhh")
                     dispatch(getUnlabeledSentence({data:Sentence}))
                 }
                 else {
                     dispatch(getUnlabeledSentence(json))
                 }
-            })
+            },error=>console.log('An error occured',error))
     }
 }
 
@@ -74,12 +74,10 @@ export const getUnlabeledSentence = (json)=>({
 
 export function updateSentenceById(sentence){
     return (dispatch)=>{
-        return axios.post('http://localhost:3001/labeling/updateone',sentence)
+        return axios.post(url+"/labeling/updateone",sentence)
             .then(res=>{
-                console.log('res=>',res)
-                return res
+                dispatch(testUpdate(res))
             },error=>console.log('An error occured',error))
-            .then((res)=>dispatch(testUpdate(res)))
     }
 }
 
